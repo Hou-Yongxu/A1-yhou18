@@ -1,42 +1,47 @@
 import java.util.ArrayList;
 
-/* Nurse subclass, inherits from HealthProfessional
-   Unique attribute: ward */
-
+/* Nurse is a subclass of HealthProfessional.
+   Nurse belongs to a ward. */
 public class Nurse extends HealthProfessional {
+    // unique field for nurse
     private String ward;
 
-    /* Constructor for Nurse
-       @param id practitioner id
-       @param name practitioner name
-       @param workingDays available weekdays
-       @param ward ward location */
-    
-    public Nurse(int id, String name, ArrayList<String> workingDays, String ward) {
-        super(id, name, workingDays);
-        if(ward == null || ward.isBlank()) {
-            throw new IllegalArgumentException("Ward cannot be empty");
-        }
+    /**
+     * Constructor
+     * @param id staff id
+     * @param name staff name
+     * @param workingDays working days
+     * @param email work email
+     * @param contactPhone work phone
+     * @param ward the ward the nurse works in
+     */
+    public Nurse(int id, String name, ArrayList<String> workingDays, String email, String contactPhone, String ward) {
+        super(id, name, workingDays, email, contactPhone);
         this.ward = ward;
     }
 
+    /**
+     * Return the job type
+     * @return profession name
+     */
     @Override
     public String getProfession() {
         return "Nurse";
     }
 
-    /* Unique behaviour: take blood sample */
-    
-    public void takeBloodSample() {
-        System.out.println(getName() + " takes blood sample for patient.");
-    }
-
+    // Getter
     public String getWard() {
         return ward;
     }
 
+    /**
+     * Show nurse information
+     * @return detail string
+     */
     @Override
     public String toString() {
-        return super.toString() + ", Profession: " + getProfession() + ", Ward: " + ward;
+        return super.toString() + ", Profession: Nurse, Ward: " + ward;
     }
 }
+
+

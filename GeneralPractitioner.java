@@ -1,45 +1,48 @@
 import java.util.ArrayList;
 
-/* General Practitioner subclass, inherits from HealthProfessional
-   Unique attribute : consultationFee*/
+/* GeneralPractitioner is a subclass of HealthProfessional.
+   GeneralPractitioner has the unique attribute of receiving consultation fees. */
 
-public class GeneralPractitioner extends HealthProfessional{
+public class GeneralPractitioner extends HealthProfessional {
+    // unique field for GeneralPractitioner
     private double consultationFee;
 
-/* Constructor for GeneralPractitioner
-   @param id practitioner id
-   @param name parctitioner name
-   @param workingDays available weekdays
-   @param consultationFee consultation price */
-
-   public GeneralPractitioner(int id, String name, ArrayList<String> workingDays, double consultationFee){
-        super(id, name, workingDays);
-        if(consultationFee <= 0){
-            throw new IllegalArgumentException("The fee must be a positive number.");
-        }
+    /**
+     * Constructor
+     * @param id staff id
+     * @param name staff name
+     * @param workingDays working days
+     * @param email work email
+     * @param contactPhone work phone
+     * @param consultationFee price for one consultation
+     */
+    public GeneralPractitioner(int id, String name, ArrayList<String> workingDays, String email, String contactPhone, double consultationFee) {
+        super(id, name, workingDays, email, contactPhone);
         this.consultationFee = consultationFee;
-   }
+    }
 
-   @Override 
-   public String getProfession(){
+    /**
+     * Return to job type
+     * @return profession name
+     */
+    @Override
+    public String getProfession() {
         return "General Practitioner";
-   }
+    }
 
-/* Unique behaviour: prescribe medicine
-   @param drugName name of drug */
-
-   public void prescribeDrug(String drugName){
-        System.out.println(getName() + " prescribes " + drugName);
-   }
-
-   public double getConsultationFee(){
+    // Getter
+    public double getConsultationFee() {
         return consultationFee;
-   }
+    }
 
-   @Override 
-   public String toString(){
-        return super.toString() + ", Profession: " + getProfession() + ", Consultation Fee: $" +consultationFee;
-   }
-    
+    /**
+     * Show GeneralPractitioner information
+     * @return detail string
+     */
+    @Override
+    public String toString() {
+        return super.toString() + ", Profession: General Practitioner, Consultation Fee: $" + consultationFee;
+    }
 }
+
 

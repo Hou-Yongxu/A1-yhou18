@@ -1,42 +1,46 @@
 import java.util.ArrayList;
 
-/* Dietitian subclass, inherits from HealthProfessional
-   Unique attribute: focusArea */
-
+/* Dietitian is a subclass of HealthProfessional.
+   Dietitian has a focus area for nutrition. */
 public class Dietitian extends HealthProfessional {
+    // unique field for dietitian
     private String focusArea;
 
-    /* Constructor for Dietitian
-       @param id practitioner id
-       @param name practitioner name
-       @param workingDays available weekdays
-       @param focusArea diet focus field */
-
-    public Dietitian(int id, String name, ArrayList<String> workingDays, String focusArea) {
-        super(id, name, workingDays);
-        if(focusArea == null || focusArea.isBlank()) {
-            throw new IllegalArgumentException("Focus area cannot be empty");
-        }
+    /**
+     * Constructor
+     * @param id staff id
+     * @param name staff name
+     * @param workingDays working days
+     * @param email work email
+     * @param contactPhone work phone
+     * @param focusArea nutrition research area
+     */
+    public Dietitian(int id, String name, ArrayList<String> workingDays, String email, String contactPhone, String focusArea) {
+        super(id, name, workingDays, email, contactPhone);
         this.focusArea = focusArea;
     }
 
+    /**
+     * Return to job type
+     * @return profession name
+     */
     @Override
     public String getProfession() {
         return "Dietitian";
     }
 
-    /* Unique behaviour: provide diet plan */
-    
-    public void giveDietPlan() {
-        System.out.println(getName() + " provides a custom diet plan.");
-    }
-
+    // Getter
     public String getFocusArea() {
         return focusArea;
     }
 
+    /**
+     * Show dietitian information
+     * @return detail string
+     */
     @Override
     public String toString() {
-        return super.toString() + ", Profession: " + getProfession() + ", Focus Area: " + focusArea;
+        return super.toString() + ", Profession: Dietitian, Focus Area: " + focusArea;
     }
 }
+

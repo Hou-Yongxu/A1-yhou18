@@ -1,42 +1,45 @@
 import java.util.ArrayList;
 
-/* Specialist subclass, inherits from HealthProfessional
-   Unique attribute: specialty*/
-
+/* Specialist is a subclass of HealthProfessional.
+   Specialist has a specialty field. */
 public class Specialist extends HealthProfessional {
+    // unique field for specialist
     private String specialty;
 
-    /* Constructor for Specialist
-       @param id practitioner id
-       @param name practitioner name
-       @param workingDays available weekdays
-       @param specialty medical specialty */
-    
-    public Specialist(int id, String name, ArrayList<String> workingDays, String specialty) {
-        super(id, name, workingDays);
-        if(specialty == null || specialty.isBlank()) {
-            throw new IllegalArgumentException("Specialty cannot be empty.");
-        }
+    /**
+     * Constructor
+     * @param id staff id
+     * @param name staff name
+     * @param workingDays working days
+     * @param email work email
+     * @param contactPhone work phone
+     * @param specialty the area this specialist focuses on
+     */
+    public Specialist(int id, String name, ArrayList<String> workingDays, String email, String contactPhone, String specialty) {
+        super(id, name, workingDays, email, contactPhone);
         this.specialty = specialty;
     }
 
-    @Override 
+    /**
+     * Return to job type
+     * @return profession name
+     */
+    @Override
     public String getProfession() {
         return "Specialist";
     }
 
-    /* Unique behavior: refer patient to another department */ 
-    
-    public void referPatient(){
-        System.out.println(getName() + " refers patient to another department.");
-    }
-
+    // Getter
     public String getSpecialty() {
         return specialty;
     }
 
-    @Override 
-    public String toString(){
-        return super.toString() + ", Profession: " + getProfession() + ", Specialty: " + specialty;
+    /**
+     * Show specialist information
+     * @return detail string
+     */
+    @Override
+    public String toString() {
+        return super.toString() + ", Profession: Specialist, Specialty: " + specialty;
     }
-} 
+}
