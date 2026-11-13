@@ -1,100 +1,94 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
-/* AppointmentManager handle all appointment business logic */
-
+/* AppointmentManager manages all appointment records.
+   It can add, search, cancel and print bookings. */
 public class AppointmentManager {
     private ArrayList<Appointment> appointmentList;
 
+    /* Constructor, create empty list to store appointments */
     public AppointmentManager() {
         appointmentList = new ArrayList<>();
     }
 
-    public boolean addAppointment(Appointment app) {
-        for(Appointment a : appointmentList) {
-            if(a.getHp().equals(app.getHp()) && a.getTimeSlot().equals(app.getTimeSlot())) {
-                System.out.println("[ERROR] This practitioner already booked at " + app.getTimeSlot());
+    /**
+     * Add a new appointment if the time slot is not taken
+     * @param newAppointment the new booking
+     * @return true if add successfully, false if time conflict
+     */
+    public boolean addAppointment(Appointment newAppointment) {
+        for (Appointment app : appointmentList) {
+            // Ensure that the same medical staff cannot be scheduled for the same appointment at the same time.
+            if (app.getHp().getId() == newAppointment.getHp().getId()
+                    && app.getTimeSlot().equals(newAppointment.getTimeSlot())) {
                 return false;
             }
         }
-        appointmentList.add(app);
-        System.out.println("[SUCCESS] New appointment added");
+        appointmentList.add(newAppointment);
         return true;
     }
 
-    public ArrayList<Appointment> findByHpId(int hpId) {
-        ArrayList<Appointment> res = new ArrayList<>();
-        for(Appointment a : appointmentList) {
-            if(a.getHp().getId() == hpId) {
-                res.add(a);
+    /**
+     * Search appointments by health professional ID
+     * @param hpId target staff id
+     */
+    public void searchByHpId(int hpId) {
+        boolean found = false;
+        for (Appointment app : appointmentList) {
+            if (app.getHp().getId() == hpId) {
+                System.out.println(app);
+                found = true;
             }
         }
-        return res;
+        if (!found) {
+            System.out.println("No appointments found for this ID.");
+        }
     }
 
-    public ArrayList<Appointment> findByPhone(String phone) {
-        ArrayList<Appointment> res = new ArrayList<>();
-        for(Appointment a : appointmentList) {
-            if(a.getPatient().getPhoneNumber().equals(phone)) {
-                res.add(a);
+    /**
+     * Search appointments by patient phone number
+     * @param phone patient phone
+     */
+    public void searchByPatientPhone(String phone) {
+        boolean found = false;
+        for (Appointment app : appointmentList) {
+            if (app.getPatient().getPatientPhone().equals(phone)) {
+                System.out.println(app);
+                found = true;
             }
         }
-        return res;
+        if (!found) {
+            System.out.println("No appointments found for this phone.");
+        }
     }
 
-    public void sortAppointments() {
-        Collections.sort(appointmentList);
-    }
-
-    public boolean cancelByHpAndTime(int hpId, String time) {
-        for(int i = 0; i < appointmentList.size(); i++) {
-            Appointment a = appointmentList.get(i);
-            if(a.getHp().getId() == hpId && a.getTimeSlot().equals(time)) {
-                appointmentList.remove(i);
-                System.out.println("[SUCCESS] Appointment cancelled");
+    /**
+     * Cancel an appointment by hp id and time slot
+     * @param hpId health professional id
+     * @param timeSlot booking time
+     * @return true if cancel successfully
+     */
+    public boolean cancelAppointment(int hpId, String timeSlot) {
+        for (Appointment app : appointmentList) {
+            if (app.getHp().getId() == hpId && app.getTimeSlot().equals(timeSlot)) {
+                appointmentList.remove(app);
                 return true;
             }
         }
-        System.out.println("[ERROR] Cannot find target appointment");
         return false;
     }
 
-    public boolean cancelByPhone(String phone) {
-        boolean removed = false;
-        for(int i = appointmentList.size()-1; i >=0; i--) {
-            Appointment a = appointmentList.get(i);
-            if(a.getPatient().getPhoneNumber().equals(phone)) {
-                appointmentList.remove(i);
-                removed = true;
-            }
-        }
-        if(!removed) {
-            System.out.println("[ERROR] No appointment match this phone");
-        } else {
-            System.out.println("[SUCCESS] All appointments for this patient cancelled");
-        }
-        return removed;
-    }
-
-    public ArrayList<Appointment> getAllAppointments() {
-        return appointmentList;
-    }
-
-    public void printAppointmentList(ArrayList<Appointment> list) {
-        System.out.println("----------------------------------------");
-        if(list.isEmpty()) {
-            System.out.println("No appointments available.");
-            System.out.println("----------------------------------------");
+    /**
+     * Print all existing appointments
+     */
+    public void printAllAppointments() {
+        if (appointmentList.isEmpty()) {
+            System.out.println("No appointments yet.");
             return;
         }
-        for(Appointment app : list) {
+        for (Appointment app : appointmentList) {
             System.out.println(app);
         }
-        System.out.println("----------------------------------------");
-    }
-
-    public void clearAllAppointment() {
-        appointmentList.clear();
     }
 }
+
 
