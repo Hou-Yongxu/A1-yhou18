@@ -29,6 +29,11 @@ public class Specialist extends HealthProfessional {
         return "Specialist";
     }
 
+    @Override
+    public String performDuty() {
+        return "Provides specialist diagnosis in " + specialty + ".";
+}
+
     // Getter
     public String getSpecialty() {
         return specialty;

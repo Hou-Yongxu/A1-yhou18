@@ -5,11 +5,17 @@ public class Patient {
     private String patientPhone;
 
     /**
-     * Constructor
+     * Create the patient after checking the required information.
      * @param patientName name of patient
      * @param patientPhone patient contact number
      */
     public Patient(String patientName, String patientPhone) {
+        if (patientName == null || patientName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Patient name cannot be empty.");
+        }
+        if (patientPhone == null || patientPhone.trim().isEmpty()) {
+            throw new IllegalArgumentException("Patient phone cannot be empty.");
+        }
         this.patientName = patientName;
         this.patientPhone = patientPhone;
     }

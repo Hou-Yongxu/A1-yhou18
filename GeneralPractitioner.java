@@ -30,6 +30,11 @@ public class GeneralPractitioner extends HealthProfessional {
         return "General Practitioner";
     }
 
+    @Override
+    public String performDuty() {
+        return "Provide diagnosis and treatment for patients and issue prescriptions.";
+}
+
     // Getter
     public double getConsultationFee() {
         return consultationFee;

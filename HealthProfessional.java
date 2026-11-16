@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-/* The abstract class of medical staff.
+/* The abstract class of all health professionals.
    Stores the general information of all health professionals. */
 public abstract class HealthProfessional {
     private int id;           //Define the ID of HealthProfessional
@@ -10,7 +10,7 @@ public abstract class HealthProfessional {
     private String contactPhone;       //Define phone of HealthProfessional
 
     /**
-     * Constructor
+     * Create health professionals after checking the shared data.
      * @param id unique number for staff
      * @param name staff name
      * @param workingDays days the staff works
@@ -18,6 +18,15 @@ public abstract class HealthProfessional {
      * @param contactPhone work phone number
      */
     public HealthProfessional(int id, String name, ArrayList<String> workingDays, String email, String contactPhone) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID must be positive.");
+        }
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty.");
+        }
+        if (workingDays == null || workingDays.isEmpty()) {
+            throw new IllegalArgumentException("Working days cannot be empty.");
+        }
         this.id = id;
         this.name = name;
         this.workingDays = workingDays;
@@ -51,6 +60,29 @@ public abstract class HealthProfessional {
      * @return job type string
      */
     public abstract String getProfession();
+
+    /**    (non-Javadoc)
+     * Returns the main duty of this professional type
+     * @return duty description
+     */
+    public abstract String performDuty();
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof HealthProfessional)) {
+            return false;
+        }
+        HealthProfessional that = (HealthProfessional) other;
+        return this.id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 
     /**
      * Show all information of this staff

@@ -29,6 +29,11 @@ public class Dietitian extends HealthProfessional {
         return "Dietitian";
     }
 
+    @Override
+    public String performDuty() {
+        return "Creates nutrition plans for " + focusArea + ".";
+}
+
     // Getter
     public String getFocusArea() {
         return focusArea;

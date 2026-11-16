@@ -29,6 +29,11 @@ public class Nurse extends HealthProfessional {
         return "Nurse";
     }
 
+    @Override
+    public String performDuty() {
+        return "Takes blood samples and assists patients in " + ward + ".";
+}
+
     // Getter
     public String getWard() {
         return ward;
